@@ -1,10 +1,5 @@
 /**
- * Build styles
- */
-import './index.css';
-
-/**
- * Import ';
+ * Import;
  */
 // awaiting PR to be merged: https://github.com/codex-team/icons/pull/42
 //import { IconClearFormatting } from '@codexteam/icons';
