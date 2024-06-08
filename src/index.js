@@ -30,6 +30,9 @@ export default class ClearFormatting {
     config = {
         shortcut: null,
         closeOnClick: false,
+        // for as long there is no icon for this tool in codex/icons, we will use the following svg
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.7,7h3.1M17.1,9l.7-1.8c0-.1,0-.2-.1-.2h-3.8M11.1,14.6l-.9,2.4M13.8,7l-.7,2M10.2,17h-2M10.2,17h2"/><line x1="7" x2="17.8" y1="7" y2="17" stroke="currentColor" stroke-linecap="round" stroke-width="2"/></svg>',
+
     }
 
     /**
@@ -103,9 +106,7 @@ export default class ClearFormatting {
          */
         this.button = document.createElement('button');
         this.button.type = 'button';
-
-        // for as long there is no icon for this tool in codex/icons, we will use the following svg
-        this.button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.7,7h3.1M17.1,9l.7-1.8c0-.1,0-.2-.1-.2h-3.8M11.1,14.6l-.9,2.4M13.8,7l-.7,2M10.2,17h-2M10.2,17h2"/><line x1="7" x2="17.8" y1="7" y2="17" stroke="currentColor" stroke-linecap="round" stroke-width="2"/></svg>`;
+        this.button.innerHTML = this.config.icon;
         this.button.classList.add(this.api.styles.inlineToolButton);
 
         return this.button;
