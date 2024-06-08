@@ -2,9 +2,8 @@
     "name": "@ympact/editorjs-clear-formatting",
     "version": "0.1",
     "keywords": [
-      "codex editor",
       "clear formatting",
-      "inline",
+      "inline tool",
       "editor.js",
       "editorjs"
     ],
