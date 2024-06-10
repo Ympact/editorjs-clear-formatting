@@ -82,6 +82,7 @@ export default class ClearFormatting {
      * @param {object} options.block - block api
      */
     constructor({config, api, block}) {
+        console.info('test version clear formatting tool');
         /**
          * Essential tools
          */
