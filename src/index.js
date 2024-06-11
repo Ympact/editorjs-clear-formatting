@@ -159,6 +159,9 @@ export default class ClearFormatting {
      */
     updateState(){
         this.state = SelectionUtils.hasFormatting(this.block);
+        
+        console.log(this.button, this.api.styles.inlineToolButtonActive, this.state)
+        
         this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
     }
     

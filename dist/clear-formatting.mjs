@@ -1,7 +1,7 @@
-var a = Object.defineProperty;
-var u = (o, t, e) => t in o ? a(o, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : o[t] = e;
-var s = (o, t, e) => (u(o, typeof t != "symbol" ? t + "" : t, e), e);
-class r {
+var c = Object.defineProperty;
+var u = (n, t, e) => t in n ? c(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
+var o = (n, t, e) => (u(n, typeof t != "symbol" ? t + "" : t, e), e);
+class l {
   /**
    * Check if the selection has formatting
    * @returns {boolean}
@@ -12,18 +12,10 @@ class r {
     let e = window.getSelection();
     if (e.rangeCount === 0)
       return !1;
-    let n = e.getRangeAt(0);
-    console.log(
-      n,
-      n.cloneContents().childNodes,
-      n.cloneContents().children,
-      n.cloneContents().textContent,
-      n.toString()
-    );
-    let c = n.cloneContents().textContent, l = n.toString();
-    if (c !== l)
+    let s = e.getRangeAt(0);
+    if (s.cloneContents().children.length)
       return !0;
-    let i = n.commonAncestorContainer;
+    let i = s.commonAncestorContainer;
     return i.nodeType === Node.TEXT_NODE && (i = i.parentElement), i !== t;
   }
   /**
@@ -35,8 +27,8 @@ class r {
    * @returns {void}
    */
   static clearFormatting() {
-    let t = window.getSelection(), e = t.getRangeAt(0), l = e.cloneRange().extractContents().textContent, i = document.createTextNode(l);
-    e.deleteContents(), e.insertNode(i), t.removeAllRanges(), t.addRange(e);
+    let t = window.getSelection(), e = t.getRangeAt(0), r = e.cloneRange().extractContents().textContent, a = document.createTextNode(r);
+    e.deleteContents(), e.insertNode(a), t.removeAllRanges(), t.addRange(e);
   }
   /**
    * Find the block node in which the selection is made
@@ -64,7 +56,7 @@ class g {
      * Default configuration
      * @param {object} config
      */
-    s(this, "config", {
+    o(this, "config", {
       shortcut: null,
       closeOnClick: !1,
       // for as long there is no icon for this tool in codex/icons, we will use the following svg
@@ -74,13 +66,13 @@ class g {
      * State of the tool
      * @type {boolean}
      */
-    s(this, "state", !1);
+    o(this, "state", !1);
     /**
      * block in which the selection is made
      * will be set when checkState is called
      * @type {HTMLElement}
      */
-    s(this, "block", null);
+    o(this, "block", null);
     this.api = e, this.config = { ...this.config, ...t };
   }
   /**
@@ -127,7 +119,7 @@ class g {
    * @returns {void}
    */
   surround(t) {
-    t && (r.clearFormatting(), this.config.closeOnClick && this.api.inlineToolbar.close());
+    t && (l.clearFormatting(), this.config.closeOnClick && this.api.inlineToolbar.close());
   }
   /**
    * Check for a tool's state
@@ -136,14 +128,14 @@ class g {
    * @returns {void}
    */
   async checkState(t) {
-    this.block = r.findBlock(t), this.updateState(), this.block.addEventListener("input", this.updateState);
+    this.block = l.findBlock(t), this.updateState(), this.block.addEventListener("input", this.updateState);
   }
   /**
    * Update the state of the tool
    * @returns {void}
    */
   updateState() {
-    this.state = r.hasFormatting(this.block), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
+    this.state = l.hasFormatting(this.block), console.log(this.button, this.api.styles.inlineToolButtonActive, this.state), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
   }
   /**
    * Function called with Inline Toolbar closing
