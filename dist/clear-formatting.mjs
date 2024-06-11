@@ -108,8 +108,8 @@ class d {
    * @returns {void}
    */
   async checkState(t) {
-    this.block = t.anchorNode.parentElement, this.state = l.hasFormatting(), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state), console.log("blockDiv", this.block), this.api.listeners.on(this.block, "change", () => {
-      console.info("text has changed");
+    this.block = t.anchorNode.parentElement, this.state = l.hasFormatting(), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state), this.api.listeners.on(this.block, "input", (e) => {
+      console.info("text has changed", e);
     });
   }
   /**
@@ -117,7 +117,7 @@ class d {
    * @returns {void}
    */
   clear() {
-    this.api.listeners.off(this.block, "change");
+    this.api.listeners.off(this.block, "input");
   }
 }
 export {

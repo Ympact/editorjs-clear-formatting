@@ -149,12 +149,14 @@ export default class ClearFormatting {
         this.state = SelectionUtils.hasFormatting();
         this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
 
-        console.log('blockDiv', this.block );
+        // listen for changes in the block contents
+        
 
-        this.api.listeners.on(this.block , 'change', () => {
-            console.info('text has changed');
+        this.api.listeners.on(this.block , 'input', (e) => {
+            console.info('text has changed', e);
             // check if the current selection was edited by other inline tools, we probably need to expand the selection to include the new html tags, and thus reenable the clear formatting button
         });
+
         // keep checking as we don't have another way to check if the current selection was edited by other inline tools
         // atm this will not work, we will need to implement something like rangy.splitBoundaries()
         /*
@@ -172,11 +174,12 @@ export default class ClearFormatting {
     }
 
     
+    
     /**
      * Function called with Inline Toolbar closing
      * @returns {void}
      */
     clear() {
-        this.api.listeners.off(this.block, 'change');
+        this.api.listeners.off(this.block, 'input');
     }
 }
