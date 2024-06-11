@@ -1,7 +1,7 @@
 var a = Object.defineProperty;
 var h = (n, t, e) => t in n ? a(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
 var i = (n, t, e) => (h(n, typeof t != "symbol" ? t + "" : t, e), e);
-class l {
+class s {
   /**
    * Check if the selection has formatting
    * @returns {boolean}
@@ -10,8 +10,8 @@ class l {
     let t = window.getSelection();
     if (t.rangeCount === 0)
       return !1;
-    let e = t.getRangeAt(0), o = e.cloneContents().textContent, s = e.toString();
-    return o !== s;
+    let e = t.getRangeAt(0), o = e.cloneContents().textContent, l = e.toString();
+    return o !== l;
   }
   /**
    * Clear formatting from the selected text
@@ -49,7 +49,7 @@ class d {
      * State of the tool
      */
     i(this, "state", !1);
-    console.info("test version clear formatting tool"), this.api = e, this.block = o, console.log("block", o), this.config = { ...this.config, ...t };
+    this.api = e, this.block = o, console.log("block", o), console.log("api", e), this.config = { ...this.config, ...t };
   }
   /**
    * Specifies Tool as Inline Toolbar Tool
@@ -68,8 +68,8 @@ class d {
    * Title for hover-tooltip
    * @returns {string}
    */
-  static get title() {
-    return this.api.i18n.t(g.clearFormatting);
+  get title() {
+    return console.log(this.api), g.clearFormatting;
   }
   /**
    * Set a shortcut
@@ -95,7 +95,7 @@ class d {
    * @returns {void}
    */
   surround(t) {
-    t && (l.clearFormatting(), this.config.closeOnClick && this.api.inlineToolbar.close());
+    t && (s.clearFormatting(), this.config.closeOnClick && this.api.inlineToolbar.close());
   }
   /**
    * Check for a tool's state
@@ -104,7 +104,9 @@ class d {
    * @returns {void}
    */
   async checkState(t) {
-    this.state = l.hasFormatting(), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state), console.log(this.block.holder), this.api.listeners.on(this.block.holder, "change", () => {
+    this.state = s.hasFormatting(), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
+    let e = t.anchorNode.parentElement;
+    console.log("blockDiv", e), console.log(this.block.holder), this.api.listeners.on(this.block.holder, "change", () => {
     });
   }
   /**

@@ -57,7 +57,7 @@ export default class ClearFormatting {
      * Title for hover-tooltip
      * @returns {string}
      */
-    public get title() {
+    get title() {
         console.log(this.api);
         return DICTIONARY.clearFormatting;
     }
