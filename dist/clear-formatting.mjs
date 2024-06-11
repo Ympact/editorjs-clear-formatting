@@ -1,7 +1,7 @@
-var c = Object.defineProperty;
-var u = (n, t, e) => t in n ? c(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
-var l = (n, t, e) => (u(n, typeof t != "symbol" ? t + "" : t, e), e);
-class a {
+var a = Object.defineProperty;
+var u = (o, t, e) => t in o ? a(o, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : o[t] = e;
+var s = (o, t, e) => (u(o, typeof t != "symbol" ? t + "" : t, e), e);
+class r {
   /**
    * Check if the selection has formatting
    * @returns {boolean}
@@ -12,13 +12,19 @@ class a {
     let e = window.getSelection();
     if (e.rangeCount === 0)
       return !1;
-    let i = e.getRangeAt(0);
-    console.log(i.cloneContents(), i.toString());
-    let r = i.cloneContents().textContent, s = i.toString();
-    if (r !== s)
-      return console.log(r, s, "we have formatting within selection"), !0;
-    let o = i.commonAncestorContainer;
-    return o.nodeType === Node.TEXT_NODE && (o = o.parentElement), o !== t ? (console.log(o, t, "selection is part of the formatting"), !0) : !1;
+    let n = e.getRangeAt(0);
+    console.log(
+      n,
+      n.cloneContents().childNodes,
+      n.cloneContents().children,
+      n.cloneContents().textContent,
+      n.toString()
+    );
+    let c = n.cloneContents().textContent, l = n.toString();
+    if (c !== l)
+      return !0;
+    let i = n.commonAncestorContainer;
+    return i.nodeType === Node.TEXT_NODE && (i = i.parentElement), i !== t;
   }
   /**
    * Clear formatting from the selected text
@@ -29,8 +35,8 @@ class a {
    * @returns {void}
    */
   static clearFormatting() {
-    let t = window.getSelection(), e = t.getRangeAt(0), s = e.cloneRange().extractContents().textContent, o = document.createTextNode(s);
-    e.deleteContents(), e.insertNode(o), t.removeAllRanges(), t.addRange(e);
+    let t = window.getSelection(), e = t.getRangeAt(0), l = e.cloneRange().extractContents().textContent, i = document.createTextNode(l);
+    e.deleteContents(), e.insertNode(i), t.removeAllRanges(), t.addRange(e);
   }
   /**
    * Find the block node in which the selection is made
@@ -45,7 +51,7 @@ class a {
 const h = {
   clearFormatting: "Clear formatting within selection"
 };
-class d {
+class g {
   /**
    * Initialize basic data
    *
@@ -58,7 +64,7 @@ class d {
      * Default configuration
      * @param {object} config
      */
-    l(this, "config", {
+    s(this, "config", {
       shortcut: null,
       closeOnClick: !1,
       // for as long there is no icon for this tool in codex/icons, we will use the following svg
@@ -68,13 +74,13 @@ class d {
      * State of the tool
      * @type {boolean}
      */
-    l(this, "state", !1);
+    s(this, "state", !1);
     /**
      * block in which the selection is made
      * will be set when checkState is called
      * @type {HTMLElement}
      */
-    l(this, "block", null);
+    s(this, "block", null);
     this.api = e, this.config = { ...this.config, ...t };
   }
   /**
@@ -121,7 +127,7 @@ class d {
    * @returns {void}
    */
   surround(t) {
-    t && (a.clearFormatting(), this.config.closeOnClick && this.api.inlineToolbar.close());
+    t && (r.clearFormatting(), this.config.closeOnClick && this.api.inlineToolbar.close());
   }
   /**
    * Check for a tool's state
@@ -130,14 +136,14 @@ class d {
    * @returns {void}
    */
   async checkState(t) {
-    this.block = a.findBlock(t), this.updateState(), this.block.addEventListener("input", this.updateState);
+    this.block = r.findBlock(t), this.updateState(), this.block.addEventListener("input", this.updateState);
   }
   /**
    * Update the state of the tool
    * @returns {void}
    */
   updateState() {
-    this.state = a.hasFormatting(this.block), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
+    this.state = r.hasFormatting(this.block), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
   }
   /**
    * Function called with Inline Toolbar closing
@@ -148,5 +154,5 @@ class d {
   }
 }
 export {
-  d as default
+  g as default
 };

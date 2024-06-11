@@ -16,13 +16,18 @@ export class SelectionUtils {
         // Check if the selection includes inline tags
         let range = sel.getRangeAt(0);
 
-        console.log(range.cloneContents(), range.toString());
+        console.log(range, 
+            range.cloneContents().childNodes, 
+            range.cloneContents().children, 
+            range.cloneContents().textContent, 
+            range.toString()
+        );
 
         let selectedText = range.cloneContents().textContent;
         let rangeText = range.toString();
 
         if(selectedText !== rangeText){
-            console.log(selectedText, rangeText, 'we have formatting within selection');
+            //console.log(selectedText, rangeText, 'we have formatting within selection');
             return true;
         }
 
@@ -32,8 +37,7 @@ export class SelectionUtils {
             node = node.parentElement;
         }
         if (node !== context) {
-            console.log(node, context, 'selection is part of the formatting');
-
+            //console.log(node, context, 'selection is part of the formatting');
             return true;
         }
 
