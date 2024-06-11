@@ -1,13 +1,13 @@
 {
     "name": "@ympact/editorjs-clear-formatting",
-    "version": "0.1",
+    "version": "1.0",
     "keywords": [
       "clear formatting",
       "inline tool",
       "editor.js",
       "editorjs"
     ],
-    "description": "C;ear formatting Tool for Editor.js",
+    "description": "Clear Formatting Tool for Editor.js",
     "license": "MIT",
     "repository": "https://github.com/ympact/editorjs-clear-formatting",
     "files": ["dist"],
@@ -22,17 +22,18 @@
     "scripts": {
       "dev": "vite",
       "build": "vite build",
-      "preview": "vite preview"
+      "preview": "vite preview",
+      "test": "echo \"Error: no test specified\" && exit 0"
     },
     "author": {
       "name": "Ymapct",
       "email": "info@ympact.dev"
     },
     "devDependencies": {
-      "vite": "^4.4.11",
-      "vite-plugin-css-injected-by-js": "^3.3.0"
+      "vite": "^5.2.0",
+      "vite-plugin-css-injected-by-js": "^3.5.0"
     },
     "dependencies": {
-      "@codexteam/icons": "^0.0.4"
+      "@codexteam/icons": "^0.3.0"
     }
   }
