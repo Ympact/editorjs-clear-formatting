@@ -160,9 +160,13 @@ export default class ClearFormatting {
     updateState(){
         this.state = SelectionUtils.hasFormatting(this.block);
         
-        console.log(this.button, this.api.styles.inlineToolButtonActive, this.state)
-        
-        this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
+        // disable/enable button based on the state
+        this.button.disabled = !this.state;
+
+        // for some reason this.api is sometimes undefined, so we need to check for it to prevent errors
+        if(this.api !== undefined){
+            this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
+        }
     }
     
     /**

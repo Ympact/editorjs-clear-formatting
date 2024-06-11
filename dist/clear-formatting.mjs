@@ -135,7 +135,7 @@ class g {
    * @returns {void}
    */
   updateState() {
-    this.state = l.hasFormatting(this.block), console.log(this.button, this.api.styles.inlineToolButtonActive, this.state), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
+    this.state = l.hasFormatting(this.block), this.button.disabled = !this.state, this.api !== void 0 && this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
   }
   /**
    * Function called with Inline Toolbar closing
