@@ -59,11 +59,11 @@ The clear formatting tool does not output any data. It clears all existing forma
 
 ### v1.0
 
-[x] Simple clearing of formatting within selection
-[x] Keep track of newly inserted formatting from other tools while inline toolbar is visible for selection 
+- [x] Simple clearing of formatting within selection
+- [x] Keep track of newly inserted formatting from other tools while inline toolbar is visible for selection 
 
 ### v2.0
 
-[ ] More advanced clearing using boundaries
+- [ ] More advanced clearing using boundaries
 
 
