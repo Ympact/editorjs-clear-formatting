@@ -63,7 +63,7 @@ export default class ClearFormatting {
      * @returns {string}
      */
     get title() {
-        return this.api.18n.t(DICTIONARY.clearFormatting);
+        return this.api.i18n.t(DICTIONARY.clearFormatting);
     }
 
 
