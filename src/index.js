@@ -143,7 +143,7 @@ export default class ClearFormatting {
      */
     async checkState(selection) {
         // get the parent div with class cdx-block in which the selection is made. This is the block node
-        this.block = SelectionUtils.findBlock(selection.focusNode);
+        this.block = SelectionUtils.findBlock(selection);
 
         this.updateState();
 
