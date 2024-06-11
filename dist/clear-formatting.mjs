@@ -1,45 +1,61 @@
 var a = Object.defineProperty;
-var h = (n, t, e) => t in n ? a(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
-var i = (n, t, e) => (h(n, typeof t != "symbol" ? t + "" : t, e), e);
-class l {
+var u = (n, t, e) => t in n ? a(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
+var s = (n, t, e) => (u(n, typeof t != "symbol" ? t + "" : t, e), e);
+class r {
   /**
    * Check if the selection has formatting
    * @returns {boolean}
    */
-  static hasFormatting() {
-    let t = window.getSelection();
-    if (t.rangeCount === 0)
+  static hasFormatting(t) {
+    let e = window.getSelection();
+    if (e.rangeCount === 0)
       return !1;
-    let e = t.getRangeAt(0), o = e.cloneContents().textContent, s = e.toString();
-    return o !== s;
+    let i = e.getRangeAt(0), c = i.cloneContents().textContent, l = i.toString();
+    if (c !== l)
+      return !0;
+    let o = i.commonAncestorContainer;
+    if (o.nodeType === Node.TEXT_NODE && (o = o.parentElement), o !== t)
+      return !0;
   }
   /**
    * Clear formatting from the selected text
+   * TODO: 
+   *  - expand selection to include the inline tag if the contents of the inline tag equals that of the selection (use case when new formatting was applied to the selection before clearing formatting)
+   *  - needs improvement to handle selection within inline tag:
+   *    For exmample, when clearing formatting of 'on this': "some <b>emphasis on this text</b> and some more text" should become "some <b>emphasis</b> on this <b>text</b> and some more text"
    * @returns {void}
    */
   static clearFormatting() {
-    let t = window.getSelection(), e = t.getRangeAt(0), r = e.cloneRange().extractContents().textContent, c = document.createTextNode(r);
-    e.deleteContents(), e.insertNode(c), t.removeAllRanges(), t.addRange(e);
+    let t = window.getSelection(), e = t.getRangeAt(0), l = e.cloneRange().extractContents().textContent, o = document.createTextNode(l);
+    e.deleteContents(), e.insertNode(o), t.removeAllRanges(), t.addRange(e);
+  }
+  /**
+   * Find the block node in which the selection is made
+   * @param {Selection} selection
+   * @returns {Node}
+   */
+  static findBlock(t) {
+    let e = t.anchorNode;
+    return e.nodeType === Node.TEXT_NODE ? e.parentElement.closest(".cdx-block") : e.closest(".cdx-block");
   }
 }
-const g = {
+const h = {
   clearFormatting: "Clear formatting within selection"
 };
-class d {
+class g {
   /**
    * Initialize basic data
    *
    * @param {object} options - tools constructor params
    * @param {object} options.config — initial config for the tool
    * @param {object} options.api — methods from Core
-   * @param {object} options.block - block api
    */
-  constructor({ config: t, api: e, block: o }) {
+  constructor({ config: t, api: e }) {
     /**
      * Default configuration
      * @param {object} config
      */
-    i(this, "config", {
+    s(this, "config", {
       shortcut: null,
       closeOnClick: !1,
       // for as long there is no icon for this tool in codex/icons, we will use the following svg
@@ -47,13 +63,16 @@ class d {
     });
     /**
      * State of the tool
+     * @type {boolean}
      */
-    i(this, "state", !1);
+    s(this, "state", !1);
     /**
      * block in which the selection is made
+     * will be set when checkState is called
+     * @type {HTMLElement}
      */
-    i(this, "block", null);
-    this.api = e, this.block = o, console.log("api", e), this.config = { ...this.config, ...t };
+    s(this, "block", null);
+    this.api = e, this.config = { ...this.config, ...t };
   }
   /**
    * Specifies Tool as Inline Toolbar Tool
@@ -73,7 +92,7 @@ class d {
    * @returns {string}
    */
   get title() {
-    return this.api.i18n.t(g.clearFormatting);
+    return this.api.i18n.t(h.clearFormatting);
   }
   /**
    * Set a shortcut
@@ -99,7 +118,7 @@ class d {
    * @returns {void}
    */
   surround(t) {
-    t && (l.clearFormatting(), this.config.closeOnClick && this.api.inlineToolbar.close());
+    t && (r.clearFormatting(), this.config.closeOnClick && this.api.inlineToolbar.close());
   }
   /**
    * Check for a tool's state
@@ -108,18 +127,24 @@ class d {
    * @returns {void}
    */
   async checkState(t) {
-    this.block = t.anchorNode.parentElement, this.state = l.hasFormatting(), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state), this.api.listeners.on(this.block, "input", (e) => {
-      console.info("text has changed", e);
-    });
+    this.block = r.findBlock(t.focusNode), this.updateState(), this.block.addEventListener("input", this.updateState);
+  }
+  /**
+   * Update the state of the tool
+   * @param {Event|null} e
+   * @returns {void}
+   */
+  updateState(t = null) {
+    this.state = r.hasFormatting(this.block), console.log(t, this.state, this.api.styles.inlineToolButtonActive), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
   }
   /**
    * Function called with Inline Toolbar closing
    * @returns {void}
    */
   clear() {
-    this.api.listeners.off(this.block, "input");
+    this.block.removeEventListener("input", this.updateState);
   }
 }
 export {
-  d as default
+  g as default
 };

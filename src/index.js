@@ -32,11 +32,14 @@ export default class ClearFormatting {
 
     /**
      * State of the tool
+     * @type {boolean}
      */
     state = false;
 
     /**
      * block in which the selection is made
+     * will be set when checkState is called
+     * @type {HTMLElement}
      */
     block = null;
 
@@ -84,15 +87,9 @@ export default class ClearFormatting {
      * @param {object} options - tools constructor params
      * @param {object} options.config — initial config for the tool
      * @param {object} options.api — methods from Core
-     * @param {object} options.block - block api
      */
-    constructor({config, api, block}) {
-        /**
-         * Essential tools
-         */
+    constructor({config, api}) {
         this.api = api;
-        this.block = block;
-        console.log('api', api);
         this.config = {...this.config, ...config};
     }
 
@@ -128,6 +125,8 @@ export default class ClearFormatting {
             return;
         }
 
+        // needs improvement to handle selection within inline tag
+        // we will need to implement something like rangy.splitBoundaries()
         SelectionUtils.clearFormatting();
 
         if(this.config.closeOnClick){
@@ -143,43 +142,33 @@ export default class ClearFormatting {
      * @returns {void}
      */
     async checkState(selection) {
-        // get the block in which the selection is made
-        this.block = selection.anchorNode.parentElement;
+        // get the parent div with class cdx-block in which the selection is made. This is the block node
+        this.block = SelectionUtils.findBlock(selection.focusNode);
 
-        this.state = SelectionUtils.hasFormatting();
-        this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
+        this.updateState();
 
         // listen for changes in the block contents
-        
-
-        this.api.listeners.on(this.block , 'input', (e) => {
-            console.info('text has changed', e);
-            // check if the current selection was edited by other inline tools, we probably need to expand the selection to include the new html tags, and thus reenable the clear formatting button
-        });
-
-        // keep checking as we don't have another way to check if the current selection was edited by other inline tools
-        // atm this will not work, we will need to implement something like rangy.splitBoundaries()
-        /*
-    
-        this.jobs.push( setTimeout(() => {
-            this.state = this.hasFormatting();
-
-            console.log('checkState', this.state)
-            this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
-            }, 500)
-        )
-        */
+        this.block.addEventListener('input', this.updateState);
 
         return;
     }
 
-    
+    /**
+     * Update the state of the tool
+     * @param {Event|null} e
+     * @returns {void}
+     */
+    updateState(e = null){
+        this.state = SelectionUtils.hasFormatting(this.block);
+        console.log(e, this.state, this.api.styles.inlineToolButtonActive)
+        this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
+    }
     
     /**
      * Function called with Inline Toolbar closing
      * @returns {void}
      */
     clear() {
-        this.api.listeners.off(this.block, 'input');
+        this.block.removeEventListener('input', this.updateState);
     }
 }

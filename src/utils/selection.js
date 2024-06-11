@@ -7,19 +7,35 @@ export class SelectionUtils {
      * @returns {boolean}
      */
 
-    static hasFormatting() {
+    static hasFormatting(context) {
         let sel = window.getSelection();
         if (sel.rangeCount === 0) return false; // No selection
     
+        // Check if the selection includes inline tags
         let range = sel.getRangeAt(0);
         let selectedText = range.cloneContents().textContent;
         let rangeText = range.toString();
-    
-        return selectedText !== rangeText;
+        if(selectedText !== rangeText){
+            return true;
+        }
+
+        // check if the selection is within an inline tag (i.e. the inline tag is the parent of the selection and not context)
+        let node = range.commonAncestorContainer;
+        if (node.nodeType === Node.TEXT_NODE) {
+            node = node.parentElement;
+        }
+        if (node !== context) {
+            return true;
+        }
+        
     }
 
     /**
      * Clear formatting from the selected text
+     * TODO: 
+     *  - expand selection to include the inline tag if the contents of the inline tag equals that of the selection (use case when new formatting was applied to the selection before clearing formatting)
+     *  - needs improvement to handle selection within inline tag:
+     *    For exmample, when clearing formatting of 'on this': "some <b>emphasis on this text</b> and some more text" should become "some <b>emphasis</b> on this <b>text</b> and some more text"
      * @returns {void}
      */
     static clearFormatting() {
@@ -43,5 +59,15 @@ export class SelectionUtils {
         // Restore selection
         sel.removeAllRanges();
         sel.addRange(range);
+    }
+
+    /**
+     * Find the block node in which the selection is made
+     * @param {Selection} selection
+     * @returns {Node}
+     */
+    static findBlock(selection) {
+        let node = selection.anchorNode;
+        return node.nodeType === Node.TEXT_NODE ? node.parentElement.closest('.cdx-block') : node.closest('.cdx-block');
     }
 }
