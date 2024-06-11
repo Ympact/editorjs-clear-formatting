@@ -36,6 +36,11 @@ export default class ClearFormatting {
     state = false;
 
     /**
+     * block in which the selection is made
+     */
+    block = null;
+
+    /**
      * Specifies Tool as Inline Toolbar Tool
      * @returns {boolean}
      */
@@ -58,8 +63,7 @@ export default class ClearFormatting {
      * @returns {string}
      */
     get title() {
-        console.log(this.api);
-        return DICTIONARY.clearFormatting;
+        return this.api.18n.t(DICTIONARY.clearFormatting);
     }
 
 
@@ -88,7 +92,6 @@ export default class ClearFormatting {
          */
         this.api = api;
         this.block = block;
-        console.log('block', block);
         console.log('api', api);
         this.config = {...this.config, ...config};
     }
@@ -140,15 +143,16 @@ export default class ClearFormatting {
      * @returns {void}
      */
     async checkState(selection) {
+        // get the block in which the selection is made
+        this.block = selection.anchorNode.parentElement;
+
         this.state = SelectionUtils.hasFormatting();
         this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
-    
-        // get the parent div of this selected text
-        let blockDiov = selection.anchorNode.parentElement;
-        console.log('blockDiv', blockDiov);
 
-        console.log(this.block.holder);
-        this.api.listeners.on(this.block.holder, 'change', () => {
+        console.log('blockDiv', this.block );
+
+        this.api.listeners.on(this.block , 'change', () => {
+            console.info('text has changed');
             // check if the current selection was edited by other inline tools, we probably need to expand the selection to include the new html tags, and thus reenable the clear formatting button
         });
         // keep checking as we don't have another way to check if the current selection was edited by other inline tools
@@ -173,6 +177,6 @@ export default class ClearFormatting {
      * @returns {void}
      */
     clear() {
-        this.api.listeners.off(this.block.holder, 'change');
+        this.api.listeners.off(this.block, 'change');
     }
 }
