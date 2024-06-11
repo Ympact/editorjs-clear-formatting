@@ -1,0 +1,5 @@
+button.ce-inline-tool:disabled {
+    color: #999;
+    fill: #999;
+    background: #fff
+}

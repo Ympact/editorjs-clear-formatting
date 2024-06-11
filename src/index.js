@@ -1,13 +1,14 @@
 /**
- * Import;
+ * Import utils
  */
+import { SelectionUtils } from './utils/selection.js';
 // awaiting PR to be merged: https://github.com/codex-team/icons/pull/42
 //import { IconClearFormatting } from '@codexteam/icons';
 
 /**
- * Import functions
+ * Import styles
  */
-import { SelectionUtils } from './utils/selection.js';
+import './index.css';
 
 const DICTIONARY = {
   clearFormatting: 'Clear formatting within selection',
@@ -158,15 +159,16 @@ export default class ClearFormatting {
      * @returns {void}
      */
     updateState(){
+        // for some reason this.api is sometimes undefined, so we need to check for it to prevent errors
+        // TODO: need to do further investigation to find out why this is happening
+        if(this.api === undefined || this.button === undefined) return;
+
         this.state = SelectionUtils.hasFormatting(this.block);
         
         // disable/enable button based on the state
         this.button.disabled = !this.state;
 
-        // for some reason this.api is sometimes undefined, so we need to check for it to prevent errors
-        if(this.api !== undefined){
-            this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
-        }
+        this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
     }
     
     /**

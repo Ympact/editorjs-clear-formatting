@@ -1,3 +1,4 @@
+(function(){"use strict";try{if(typeof document<"u"){var e=document.createElement("style");e.appendChild(document.createTextNode("button.ce-inline-tool:disabled{color:#999;fill:#999;background:#fff}")),document.head.appendChild(e)}}catch(t){console.error("vite-plugin-css-injected-by-js",t)}})();
 var c = Object.defineProperty;
 var u = (n, t, e) => t in n ? c(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
 var o = (n, t, e) => (u(n, typeof t != "symbol" ? t + "" : t, e), e);
@@ -135,7 +136,7 @@ class g {
    * @returns {void}
    */
   updateState() {
-    this.state = l.hasFormatting(this.block), this.button.disabled = !this.state, this.api !== void 0 && this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
+    this.api === void 0 || this.button === void 0 || (this.state = l.hasFormatting(this.block), this.button.disabled = !this.state, this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state));
   }
   /**
    * Function called with Inline Toolbar closing
