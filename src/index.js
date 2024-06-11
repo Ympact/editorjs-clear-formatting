@@ -57,8 +57,9 @@ export default class ClearFormatting {
      * Title for hover-tooltip
      * @returns {string}
      */
-    static get title() {
-        return this.api.i18n.t(DICTIONARY.clearFormatting);
+    public get title() {
+        console.log(this.api);
+        return DICTIONARY.clearFormatting;
     }
 
 
@@ -82,13 +83,13 @@ export default class ClearFormatting {
      * @param {object} options.block - block api
      */
     constructor({config, api, block}) {
-        console.info('test version clear formatting tool');
         /**
          * Essential tools
          */
         this.api = api;
         this.block = block;
         console.log('block', block);
+        console.log('api', api);
         this.config = {...this.config, ...config};
     }
 
@@ -142,6 +143,10 @@ export default class ClearFormatting {
         this.state = SelectionUtils.hasFormatting();
         this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
     
+        // get the parent div of this selected text
+        let blockDiov = selection.anchorNode.parentElement;
+        console.log('blockDiv', blockDiov);
+
         console.log(this.block.holder);
         this.api.listeners.on(this.block.holder, 'change', () => {
             // check if the current selection was edited by other inline tools, we probably need to expand the selection to include the new html tags, and thus reenable the clear formatting button
