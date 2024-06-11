@@ -1,16 +1,20 @@
 var c = Object.defineProperty;
-var h = (n, t, e) => t in n ? c(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
-var l = (n, t, e) => (h(n, typeof t != "symbol" ? t + "" : t, e), e);
+var u = (n, t, e) => t in n ? c(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
+var l = (n, t, e) => (u(n, typeof t != "symbol" ? t + "" : t, e), e);
 class a {
   /**
    * Check if the selection has formatting
    * @returns {boolean}
    */
   static hasFormatting(t) {
+    if (t === void 0)
+      return !1;
     let e = window.getSelection();
     if (e.rangeCount === 0)
       return !1;
-    let i = e.getRangeAt(0), r = i.cloneContents().textContent, s = i.toString();
+    let i = e.getRangeAt(0);
+    console.log(i.cloneContents(), i.toString());
+    let r = i.cloneContents().textContent, s = i.toString();
     if (r !== s)
       return console.log(r, s, "we have formatting within selection"), !0;
     let o = i.commonAncestorContainer;
@@ -38,7 +42,7 @@ class a {
     return e.nodeType === Node.TEXT_NODE ? e.parentElement.closest(".cdx-block") : e.closest(".cdx-block");
   }
 }
-const u = {
+const h = {
   clearFormatting: "Clear formatting within selection"
 };
 class d {
@@ -91,7 +95,7 @@ class d {
    * @returns {string}
    */
   get title() {
-    return this.api.i18n.t(u.clearFormatting);
+    return this.api.i18n.t(h.clearFormatting);
   }
   /**
    * Set a shortcut

@@ -8,13 +8,19 @@ export class SelectionUtils {
      */
 
     static hasFormatting(context) {
+        if(context === undefined) return false;
+        
         let sel = window.getSelection();
         if (sel.rangeCount === 0) return false; // No selection
-    
+        
         // Check if the selection includes inline tags
         let range = sel.getRangeAt(0);
+
+        console.log(range.cloneContents(), range.toString());
+
         let selectedText = range.cloneContents().textContent;
         let rangeText = range.toString();
+
         if(selectedText !== rangeText){
             console.log(selectedText, rangeText, 'we have formatting within selection');
             return true;
