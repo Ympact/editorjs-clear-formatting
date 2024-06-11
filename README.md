@@ -2,6 +2,7 @@
 
 Basic clear formatting tool for [Editor.js](https://ifmo.su/editor).
 
+<img width="395" src="./example/assets/screenshot.png">
 
 ## Installation
 
@@ -31,7 +32,8 @@ var editor = new EditorJS({
       class: ClearFormatting
       config: {
         shortcut: null,
-        closeOnClick: false
+        closeOnClick: false,
+        icon: `<svg>...</svg>`
       }
     },
   }
@@ -46,6 +48,7 @@ var editor = new EditorJS({
 | ----- | -------- | ---------- | ------------------ |
 | `shortcut` | `string` | `null` | Set a shortcut for this tool (ie CTRL+W).  |
 | `closeOnClick` | `boolean` | `false` | Whether the inline toolbar should be closed when clicking on the clear formatting tool. |
+| `icon` | `string` | <img width="395" src="./example/assets/clear-formatting-icon.png"> | Customize the icon for the tool. |
 
 
 ## Output data
@@ -57,7 +60,10 @@ The clear formatting tool does not output any data. It clears all existing forma
 ### v1.0
 
 [x] Simple clearing of formatting within selection
-[] More advanced clearing using boundaries
-[] Keep track of newly inserted formatting from other tools while inline toolbar is visible for selection 
+[x] Keep track of newly inserted formatting from other tools while inline toolbar is visible for selection 
+
+### v2.0
+
+[ ] More advanced clearing using boundaries
 
 
