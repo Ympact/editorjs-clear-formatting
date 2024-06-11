@@ -1,7 +1,7 @@
-var a = Object.defineProperty;
-var u = (n, t, e) => t in n ? a(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
-var s = (n, t, e) => (u(n, typeof t != "symbol" ? t + "" : t, e), e);
-class r {
+var c = Object.defineProperty;
+var h = (n, t, e) => t in n ? c(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
+var l = (n, t, e) => (h(n, typeof t != "symbol" ? t + "" : t, e), e);
+class a {
   /**
    * Check if the selection has formatting
    * @returns {boolean}
@@ -10,12 +10,11 @@ class r {
     let e = window.getSelection();
     if (e.rangeCount === 0)
       return !1;
-    let i = e.getRangeAt(0), c = i.cloneContents().textContent, l = i.toString();
-    if (c !== l)
-      return !0;
+    let i = e.getRangeAt(0), r = i.cloneContents().textContent, s = i.toString();
+    if (r !== s)
+      return console.log(r, s, "we have formatting within selection"), !0;
     let o = i.commonAncestorContainer;
-    if (o.nodeType === Node.TEXT_NODE && (o = o.parentElement), o !== t)
-      return !0;
+    return o.nodeType === Node.TEXT_NODE && (o = o.parentElement), o !== t ? (console.log(o, t, "selection is part of the formatting"), !0) : !1;
   }
   /**
    * Clear formatting from the selected text
@@ -26,7 +25,7 @@ class r {
    * @returns {void}
    */
   static clearFormatting() {
-    let t = window.getSelection(), e = t.getRangeAt(0), l = e.cloneRange().extractContents().textContent, o = document.createTextNode(l);
+    let t = window.getSelection(), e = t.getRangeAt(0), s = e.cloneRange().extractContents().textContent, o = document.createTextNode(s);
     e.deleteContents(), e.insertNode(o), t.removeAllRanges(), t.addRange(e);
   }
   /**
@@ -39,7 +38,7 @@ class r {
     return e.nodeType === Node.TEXT_NODE ? e.parentElement.closest(".cdx-block") : e.closest(".cdx-block");
   }
 }
-const h = {
+const u = {
   clearFormatting: "Clear formatting within selection"
 };
 class d {
@@ -55,7 +54,7 @@ class d {
      * Default configuration
      * @param {object} config
      */
-    s(this, "config", {
+    l(this, "config", {
       shortcut: null,
       closeOnClick: !1,
       // for as long there is no icon for this tool in codex/icons, we will use the following svg
@@ -65,13 +64,13 @@ class d {
      * State of the tool
      * @type {boolean}
      */
-    s(this, "state", !1);
+    l(this, "state", !1);
     /**
      * block in which the selection is made
      * will be set when checkState is called
      * @type {HTMLElement}
      */
-    s(this, "block", null);
+    l(this, "block", null);
     this.api = e, this.config = { ...this.config, ...t };
   }
   /**
@@ -92,7 +91,7 @@ class d {
    * @returns {string}
    */
   get title() {
-    return this.api.i18n.t(h.clearFormatting);
+    return this.api.i18n.t(u.clearFormatting);
   }
   /**
    * Set a shortcut
@@ -118,7 +117,7 @@ class d {
    * @returns {void}
    */
   surround(t) {
-    t && (r.clearFormatting(), this.config.closeOnClick && this.api.inlineToolbar.close());
+    t && (a.clearFormatting(), this.config.closeOnClick && this.api.inlineToolbar.close());
   }
   /**
    * Check for a tool's state
@@ -127,15 +126,14 @@ class d {
    * @returns {void}
    */
   async checkState(t) {
-    this.block = r.findBlock(t), this.updateState(), this.block.addEventListener("input", this.updateState);
+    this.block = a.findBlock(t), this.updateState(), this.block.addEventListener("input", this.updateState);
   }
   /**
    * Update the state of the tool
-   * @param {Event|null} e
    * @returns {void}
    */
-  updateState(t = null) {
-    this.state = r.hasFormatting(this.block), console.log(t, this.state, this.api.styles.inlineToolButtonActive), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
+  updateState() {
+    this.state = a.hasFormatting(this.block), this.button.classList.toggle(this.api.styles.inlineToolButtonActive, this.state);
   }
   /**
    * Function called with Inline Toolbar closing

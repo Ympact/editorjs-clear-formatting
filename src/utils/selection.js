@@ -16,6 +16,7 @@ export class SelectionUtils {
         let selectedText = range.cloneContents().textContent;
         let rangeText = range.toString();
         if(selectedText !== rangeText){
+            console.log(selectedText, rangeText, 'we have formatting within selection');
             return true;
         }
 
@@ -25,9 +26,12 @@ export class SelectionUtils {
             node = node.parentElement;
         }
         if (node !== context) {
+            console.log(node, context, 'selection is part of the formatting');
+
             return true;
         }
-        
+
+        return false;
     }
 
     /**
