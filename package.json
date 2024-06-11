@@ -1,39 +1,48 @@
 {
-    "name": "@ympact/editorjs-clear-formatting",
-    "version": "1.0.0",
-    "keywords": [
-      "clear formatting",
-      "inline tool",
-      "editor.js",
-      "editorjs"
-    ],
-    "description": "Clear Formatting Tool for Editor.js",
-    "license": "MIT",
-    "repository": "https://github.com/ympact/editorjs-clear-formatting",
-    "files": ["dist"],
-    "main": "./dist/clear-formatting.umd.js",
-    "module": "./dist/clear-formatting.mjs",
-    "exports": {
-      ".": {
-        "import": "./dist/clear-formatting.mjs",
-        "require": "./dist/clear-formatting.umd.js"
-      }
-    },
-    "scripts": {
-      "dev": "vite",
-      "build": "vite build",
-      "preview": "vite preview",
-      "test": "echo \"Error: no test specified\" && exit 0"
-    },
-    "author": {
-      "name": "Ymapct",
-      "email": "info@ympact.dev"
-    },
-    "devDependencies": {
-      "vite": "^5.2.0",
-      "vite-plugin-css-injected-by-js": "^3.5.0"
-    },
-    "dependencies": {
-      "@codexteam/icons": "^0.3.0"
+  "name": "@ympact.dev/editorjs-clear-formatting",
+  "version": "1.0.0",
+  "keywords": [
+    "clear formatting",
+    "inline tool",
+    "editor.js",
+    "editorjs"
+  ],
+  "description": "Clear Formatting Tool for Editor.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ympact/editorjs-clear-formatting.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/clear-formatting.umd.js",
+  "module": "./dist/clear-formatting.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/clear-formatting.mjs",
+      "require": "./dist/clear-formatting.umd.js"
     }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "author": "Ymapct <info@ympact.dev>",
+  "devDependencies": {
+    "vite": "^5.2.0",
+    "vite-plugin-css-injected-by-js": "^3.5.0"
+  },
+  "dependencies": {
+    "@codexteam/icons": "^0.3.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ympact/editorjs-clear-formatting/issues"
+  },
+  "homepage": "https://github.com/ympact/editorjs-clear-formatting#readme",
+  "directories": {
+    "example": "example"
   }
+}
