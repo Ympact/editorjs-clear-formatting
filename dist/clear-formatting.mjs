@@ -42,7 +42,7 @@ class r {
 const h = {
   clearFormatting: "Clear formatting within selection"
 };
-class g {
+class d {
   /**
    * Initialize basic data
    *
@@ -127,7 +127,7 @@ class g {
    * @returns {void}
    */
   async checkState(t) {
-    this.block = r.findBlock(t.focusNode), this.updateState(), this.block.addEventListener("input", this.updateState);
+    this.block = r.findBlock(t), this.updateState(), this.block.addEventListener("input", this.updateState);
   }
   /**
    * Update the state of the tool
@@ -146,5 +146,5 @@ class g {
   }
 }
 export {
-  g as default
+  d as default
 };
