@@ -48,7 +48,7 @@ var editor = new EditorJS({
 | ----- | -------- | ---------- | ------------------ |
 | `shortcut` | `string` | `null` | Set a shortcut for this tool (ie CTRL+W).  |
 | `closeOnClick` | `boolean` | `false` | Whether the inline toolbar should be closed when clicking on the clear formatting tool. |
-| `icon` | `string` | <img width="395" src="./example/assets/clear-formatting-icon.png"> | Customize the icon for the tool. |
+| `icon` | `string` | <img width="20" src="./example/assets/clear-formatting-icon.png"> | Customize the icon for the tool. |
 
 
 ## Output data
