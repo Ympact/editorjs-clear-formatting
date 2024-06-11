@@ -15,7 +15,7 @@ yarn add @ympact.dev/editorjs-clear-formating
 Include module at your application
 
 ```javascript
-import ClearFormatting from '@ympact.dev/editorjs-clear-formating';
+import ClearFormatting from '@ympact.dev/editorjs-clear-formatting';
 ```
 
 ## Usage
