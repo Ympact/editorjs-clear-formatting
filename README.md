@@ -9,7 +9,7 @@ Basic clear formatting tool for [Editor.js](https://ifmo.su/editor).
 Get the package
 
 ```shell
-yarn add @ympact.dev/editorjs-clear-formatting
+npm i @ympact.dev/editorjs-clear-formatting
 ```
 
 Include module at your application
@@ -65,5 +65,4 @@ The clear formatting tool does not output any data. It clears all existing forma
 ### v2.0
 
 - [ ] More advanced clearing using boundaries
-
 
