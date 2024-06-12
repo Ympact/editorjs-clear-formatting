@@ -30,13 +30,10 @@
     "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
-  "author": "Ymapct <info@ympact.dev>",
+  "author": "Ympact <info@ympact.dev>",
   "devDependencies": {
     "vite": "^5.2.0",
     "vite-plugin-css-injected-by-js": "^3.5.0"
-  },
-  "dependencies": {
-    "@codexteam/icons": "^0.3.0"
   },
   "bugs": {
     "url": "https://github.com/ympact/editorjs-clear-formatting/issues"
